@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pranav Sai Palla — ML & Data</title>
+<meta name="description" content="Pranav Sai Palla — Computer Science graduate building machine learning systems and data pipelines. IEEE-published.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f1ede3;
+    --paper-2:#e9e4d6;
+    --ink:#171511;
+    --ink-soft:#46423a;
+    --muted:#7d776a;
+    --line:#cfc8b6;
+    --accent:#1f3df0;
+    --accent-deep:#152bb0;
+    --radius:14px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Hanken Grotesk",sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* paper grain */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  ::selection{background:var(--accent);color:#fff}
+
+  /* ---- nav ---- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;
+    mix-blend-mode:multiply;
+  }
+  nav .brand{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.04em;font-weight:600}
+  nav .links{display:flex;gap:26px;font-family:"JetBrains Mono",monospace;font-size:12.5px;letter-spacing:.03em}
+  nav .links a{position:relative;color:var(--ink-soft);transition:color .25s}
+  nav .links a:hover{color:var(--accent)}
+  nav .links a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1.5px;background:var(--accent);transition:width .3s}
+  nav .links a:hover::after{width:100%}
+  @media(max-width:680px){nav .links{display:none}}
+
+  /* ---- hero ---- */
+  header{
+    min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    padding:120px 0 70px;position:relative;
+  }
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.08em;
+    color:var(--accent);text-transform:uppercase;margin-bottom:26px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:38px;height:1.5px;background:var(--accent);display:inline-block}
+  h1{
+    font-family:"Fraunces",serif;
+    font-weight:500;
+    font-size:clamp(3.4rem,11vw,9.5rem);
+    line-height:.94;
+    letter-spacing:-.02em;
+  }
+  h1 em{font-style:italic;font-weight:400;color:var(--accent)}
+  .lede{
+    margin-top:34px;max-width:620px;font-size:clamp(1.05rem,2.4vw,1.4rem);
+    color:var(--ink-soft);line-height:1.5;
+  }
+  .lede b{color:var(--ink);font-weight:600}
+  .hero-actions{margin-top:42px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .btn{
+    font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.03em;
+    padding:13px 22px;border-radius:100px;border:1.5px solid var(--ink);
+    transition:all .25s;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn.primary{background:var(--ink);color:var(--paper)}
+  .btn.primary:hover{background:var(--accent);border-color:var(--accent)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+  .scroll-hint{
+    position:absolute;bottom:34px;left:32px;font-family:"JetBrains Mono",monospace;
+    font-size:11.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;
+  }
+  .hero-meta{
+    position:absolute;bottom:34px;right:32px;text-align:right;
+    font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);line-height:1.9;
+  }
+  @media(max-width:680px){.hero-meta,.scroll-hint{position:static;margin-top:40px;text-align:left}}
+
+  /* ---- section scaffolding ---- */
+  section{padding:90px 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:54px}
+  .sec-num{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--accent);font-weight:600}
+  .sec-title{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.01em}
+
+  /* ---- about ---- */
+  .about-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:60px}
+  .about-grid p{font-size:clamp(1.1rem,2.2vw,1.45rem);line-height:1.55;color:var(--ink-soft)}
+  .about-grid p b{color:var(--ink);font-weight:600}
+  .about-side{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted);line-height:2}
+  .about-side .row{display:flex;justify-content:space-between;border-bottom:1px dotted var(--line);padding:9px 0}
+  .about-side .row span:last-child{color:var(--ink)}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:36px}}
+
+  /* ---- publication feature ---- */
+  .pub{
+    background:var(--ink);color:var(--paper);border-radius:var(--radius);
+    padding:44px;position:relative;overflow:hidden;
+  }
+  .pub::after{
+    content:"IEEE";position:absolute;right:-10px;bottom:-30px;
+    font-family:"Fraunces",serif;font-weight:600;font-size:11rem;line-height:1;
+    color:rgba(255,255,255,.05);letter-spacing:-.04em;
+  }
+  .pub .tag{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.08em;color:#9fb0ff;text-transform:uppercase}
+  .pub h3{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(1.5rem,3.4vw,2.2rem);line-height:1.15;margin:16px 0 14px;max-width:780px;position:relative;z-index:1}
+  .pub p{color:#c9c4b6;max-width:680px;position:relative;z-index:1}
+  .pub a.read{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--paper);border-bottom:1.5px solid #9fb0ff;padding-bottom:3px;position:relative;z-index:1;transition:gap .25s}
+  .pub a.read:hover{gap:14px}
+
+  /* ---- projects ---- */
+  .projects{display:flex;flex-direction:column}
+  .proj{
+    display:grid;grid-template-columns:auto 1fr auto;gap:30px;align-items:start;
+    padding:34px 0;border-bottom:1px solid var(--line);position:relative;transition:padding-left .35s ease;
+  }
+  .proj:hover{padding-left:14px}
+  .proj .pidx{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted);padding-top:8px}
+  .proj h3{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(1.4rem,3vw,2rem);letter-spacing:-.01em;transition:color .25s}
+  .proj:hover h3{color:var(--accent)}
+  .proj .pdesc{color:var(--ink-soft);margin-top:10px;max-width:640px}
+  .proj .tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .proj .tags span{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.02em;color:var(--ink-soft);border:1px solid var(--line);border-radius:100px;padding:4px 11px;background:var(--paper-2)}
+  .proj .parrow{font-size:26px;color:var(--muted);padding-top:4px;transition:transform .3s,color .3s}
+  .proj:hover .parrow{transform:translate(4px,-4px);color:var(--accent)}
+  @media(max-width:680px){.proj{grid-template-columns:auto 1fr;gap:18px}.proj .parrow{display:none}}
+
+  /* ---- experience / education ---- */
+  .stack{display:grid;grid-template-columns:1fr 1fr;gap:54px}
+  @media(max-width:760px){.stack{grid-template-columns:1fr;gap:44px}}
+  .blk h4{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  .item{padding-bottom:24px;margin-bottom:24px;border-bottom:1px dotted var(--line)}
+  .item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .item .it-top{display:flex;justify-content:space-between;gap:14px;align-items:baseline}
+  .item .it-title{font-family:"Fraunces",serif;font-size:1.3rem;font-weight:500}
+  .item .it-date{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--muted);white-space:nowrap}
+  .item .it-sub{color:var(--accent-deep);font-size:14px;font-weight:600;margin:3px 0 9px}
+  .item .it-body{color:var(--ink-soft);font-size:15px}
+  .item .it-note{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);margin-top:6px}
+
+  /* ---- skills ---- */
+  .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 54px}
+  @media(max-width:680px){.skills{grid-template-columns:1fr}}
+  .skill-row{border-bottom:1px solid var(--line);padding-bottom:18px}
+  .skill-row .k{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .skill-row .v{display:flex;flex-wrap:wrap;gap:8px}
+  .skill-row .v span{font-size:14px;color:var(--ink);background:var(--paper-2);border:1px solid var(--line);border-radius:7px;padding:5px 11px}
+
+  /* ---- contact ---- */
+  .contact{text-align:center;padding:110px 0}
+  .contact .sec-num{justify-content:center;display:block;text-align:center;margin-bottom:16px}
+  .contact h2{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(2.4rem,8vw,5.5rem);line-height:1;letter-spacing:-.02em}
+  .contact h2 em{font-style:italic;color:var(--accent)}
+  .contact .mail{display:inline-block;margin-top:28px;font-family:"JetBrains Mono",monospace;font-size:clamp(.9rem,2.5vw,1.15rem);border-bottom:2px solid var(--accent);padding-bottom:5px;transition:color .25s}
+  .contact .mail:hover{color:var(--accent)}
+  .contact .socials{margin-top:40px;display:flex;gap:24px;justify-content:center;font-family:"JetBrains Mono",monospace;font-size:13px;flex-wrap:wrap}
+  .contact .socials a{color:var(--ink-soft);transition:color .25s}
+  .contact .socials a:hover{color:var(--accent)}
+
+  footer{padding:30px 0 50px;border-top:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  /* ---- reveal animations ---- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .hero-stagger>*{opacity:0;transform:translateY(20px);animation:rise .9s cubic-bezier(.2,.6,.2,1) forwards}
+  .hero-stagger>*:nth-child(1){animation-delay:.05s}
+  .hero-stagger>*:nth-child(2){animation-delay:.18s}
+  .hero-stagger>*:nth-child(3){animation-delay:.32s}
+  .hero-stagger>*:nth-child(4){animation-delay:.46s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.reveal,.hero-stagger>*{opacity:1!important;transform:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#top">PSP<span style="color:var(--accent)">.</span></a>
+  <div class="links">
+    <a href="#about">about</a>
+    <a href="#work">work</a>
+    <a href="#projects">projects</a>
+    <a href="#contact">contact</a>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+
+  <header>
+    <div class="hero-stagger">
+      <div class="eyebrow">ML &amp; Data · Pittsburg, KS</div>
+      <h1>Pranav Sai<br>Palla<em>.</em></h1>
+      <p class="lede">Computer Science graduate building <b>machine learning systems</b> and <b>data pipelines</b> — turning large, messy datasets into models, predictions, and decisions teams can act on. <b>IEEE-published.</b></p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#projects">View work →</a>
+        <a class="btn ghost" href="Pranav_Sai_Palla_Resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+        <a class="btn ghost" href="mailto:pranavsai2910@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="scroll-hint">↓ scroll</div>
+    <div class="hero-meta">
+      Python · ML · Linux<br>
+      Available for 2026 roles
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="sec-head reveal"><span class="sec-num">01</span><h2 class="sec-title">About</h2></div>
+    <div class="about-grid">
+      <p class="reveal">I work at the intersection of <b>data and machine learning</b> — designing the full path from raw data to a deployed model. My published work, <b>SmartDiabX</b>, took ML classification from NHANES health data all the way to a validated, production-style system and a peer-reviewed paper. I care about <b>clean pipelines</b>, results you can measure, and documentation the next person can actually build on.</p>
+      <div class="about-side reveal">
+        <div class="row"><span>Focus</span><span>ML · Data</span></div>
+        <div class="row"><span>Languages</span><span>Python · SQL</span></div>
+        <div class="row"><span>Publications</span><span>1 · IEEE</span></div>
+        <div class="row"><span>Based in</span><span>Pittsburg, KS</span></div>
+        <div class="row"><span>Status</span><span>Open to roles</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATION -->
+  <section id="publication">
+    <div class="sec-head reveal"><span class="sec-num">02</span><h2 class="sec-title">Selected Publication</h2></div>
+    <div class="pub reveal">
+      <div class="tag">IEEE Xplore · 2025</div>
+      <h3>SmartDiabX: An End-to-End AI System for Predicting Undiagnosed Type II Diabetes</h3>
+      <p>A peer-reviewed system combining a full preprocessing pipeline with an XGBoost classifier on the NHANES dataset — reaching ROC-AUC 0.91 and 87.7% accuracy, with clinical thresholds for actionable risk scoring.</p>
+      <a class="read" href="https://ieeexplore.ieee.org/document/11465615" target="_blank" rel="noopener">Read on IEEE Xplore →</a>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE / EDUCATION -->
+  <section id="work">
+    <div class="sec-head reveal"><span class="sec-num">03</span><h2 class="sec-title">Experience &amp; Education</h2></div>
+    <div class="stack">
+      <div class="blk reveal">
+        <h4>Experience</h4>
+        <div class="item">
+          <div class="it-top"><span class="it-title">Impact Lab YLP Intern</span><span class="it-date">Oct 2024 – Apr 2025</span></div>
+          <div class="it-sub">GGI · Hyderabad, India</div>
+          <div class="it-body">Analyzed business and governance case studies with AI-driven platforms — researching data, identifying trends, and building data-backed frameworks. Worked in cross-functional cohorts with an emphasis on problem decomposition and clear documentation.</div>
+        </div>
+      </div>
+      <div class="blk reveal">
+        <h4>Education</h4>
+        <div class="item">
+          <div class="it-top"><span class="it-title">Pittsburg State University</span><span class="it-date">Aug 2025 – May 2026</span></div>
+          <div class="it-sub">B.Tech, Computer Science · GPA 3.71 / 4.0</div>
+          <div class="it-body">Pittsburg, KS, USA.</div>
+          <div class="it-note">// transfer student — 3+1 program</div>
+        </div>
+        <div class="item">
+          <div class="it-top"><span class="it-title">Malla Reddy University</span><span class="it-date">Sept 2022 – May 2025</span></div>
+          <div class="it-sub">B.Tech, Computer Science · GPA 8.54 / 10.0</div>
+          <div class="it-body">Hyderabad, India.</div>
+          <div class="it-note">// 3+1 program — home institution</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="sec-head reveal"><span class="sec-num">04</span><h2 class="sec-title">Projects</h2></div>
+    <div class="projects">
+
+      <a class="proj reveal" href="https://github.com/pranav2910/Smart_Diab" target="_blank" rel="noopener">
+        <span class="pidx">P-01</span>
+        <div>
+          <h3>SmartDiab — ML Classification &amp; Prediction</h3>
+          <p class="pdesc">End-to-end clinical ML platform: a machine learning algorithm for rapid classification and prediction, served through a React / FastAPI / Express / MongoDB stack. Full preprocessing pipeline with SMOTE balancing and feature selection on NHANES data.</p>
+          <div class="tags"><span>Python</span><span>XGBoost</span><span>FastAPI</span><span>React</span><span>MongoDB</span><span>scikit-learn</span></div>
+        </div>
+        <span class="parrow">↗</span>
+      </a>
+
+      <a class="proj reveal" href="https://github.com/pranav2910/handbook-generator" target="_blank" rel="noopener">
+        <span class="pidx">P-02</span>
+        <div>
+          <h3>Enterprise AI Handbook Generator</h3>
+          <p class="pdesc">An agentic RAG system that ingests unstructured PDFs and generates 20,000+ word structured technical documents. Built a LangChain + pdfplumber pipeline with optimized chunking and semantic retrieval via pgvector / Supabase.</p>
+          <div class="tags"><span>Python</span><span>LangChain</span><span>RAG</span><span>pgvector</span><span>Supabase</span><span>Streamlit</span></div>
+        </div>
+        <span class="parrow">↗</span>
+      </a>
+
+      <a class="proj reveal" href="https://github.com/pranav2910/CSB1_Learning_Management_System_Backend" target="_blank" rel="noopener">
+        <span class="pidx">P-03</span>
+        <div>
+          <h3>Learning Management System — Backend</h3>
+          <p class="pdesc">A backend platform built with Java Spring Boot and RESTful APIs, featuring role-based access control, normalized schemas, modular code organization, and automated end-to-end workflow testing.</p>
+          <div class="tags"><span>Java</span><span>Spring Boot</span><span>REST</span><span>RBAC</span><span>MongoDB</span></div>
+        </div>
+        <span class="parrow">↗</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-head reveal"><span class="sec-num">05</span><h2 class="sec-title">Toolkit</h2></div>
+    <div class="skills">
+      <div class="skill-row reveal"><div class="k">Programming</div><div class="v"><span>Python</span><span>SQL</span><span>Bash</span><span>Java</span><span>Go</span><span>JavaScript</span></div></div>
+      <div class="skill-row reveal"><div class="k">Machine Learning</div><div class="v"><span>XGBoost</span><span>Classification</span><span>Feature Engineering</span><span>SMOTE</span><span>NLP</span><span>RAG</span><span>Vector Search</span></div></div>
+      <div class="skill-row reveal"><div class="k">Data &amp; Analysis</div><div class="v"><span>pandas</span><span>NumPy</span><span>scikit-learn</span><span>Large-dataset analysis</span><span>Statistical methods</span></div></div>
+      <div class="skill-row reveal"><div class="k">Frameworks</div><div class="v"><span>FastAPI</span><span>LangChain</span><span>Streamlit</span><span>Node / Express</span><span>REST APIs</span></div></div>
+      <div class="skill-row reveal"><div class="k">Cloud &amp; DevOps</div><div class="v"><span>AWS</span><span>Docker</span><span>Kubernetes</span><span>Jenkins</span><span>CI/CD</span><span>Git</span></div></div>
+      <div class="skill-row reveal"><div class="k">Data Stores · OS</div><div class="v"><span>PostgreSQL</span><span>pgvector</span><span>MongoDB</span><span>MySQL</span><span>Linux / Unix</span></div></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <span class="sec-num">06 — Contact</span>
+    <h2>Let's build<br>something <em>smart.</em></h2>
+    <a class="mail" href="mailto:pranavsai2910@gmail.com">pranavsai2910@gmail.com</a>
+    <div class="socials">
+      <a href="https://github.com/pranav2910" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://linkedin.com/in/pranav-sai2910" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://ieeexplore.ieee.org/document/11465615" target="_blank" rel="noopener">IEEE Xplore ↗</a>
+      <a href="tel:+16207198080">+1 (620) 719-8080</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© <span id="yr"></span> Pranav Sai Palla</span>
+    <span>Designed &amp; built — Pittsburg, KS</span>
+  </footer>
+
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        const els = e.target.parentElement.querySelectorAll('.reveal');
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.12, rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay = (Math.min(i%4,4)*0.06)+"s";
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
